@@ -20,5 +20,13 @@ app.get('/', (req, res) => {
     });
 })
 
+app.get('/add-breed', (req, res) => {
+    res.render('addBreed')
+})
+
+app.get('/add-cat', (req, res) => {
+    res.render('addCat')
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

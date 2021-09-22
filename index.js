@@ -14,13 +14,17 @@ app.engine('hbs', handlebars ({
 app.set('view engine', 'hbs');
 
 app.use(express.static('./public'));
+app.use(express.json());
 
-mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser: true, useUnifiedTopology: true}, () => {
+mongoose.connect(process.env.DB_CONNECTION, () => {
 console.log('Connected to DB...');
 });
-// mongoose.set('useCreateIndex', true);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+
+const catsRoute = require('./routes/catRoutes.js')
+
+app.use('/cats', catsRoute);
 
 app.get('/', (req, res) => {
     res.render('home', {

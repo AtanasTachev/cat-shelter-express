@@ -24,15 +24,16 @@ router.get('/', (req, res) => {
 router.get('/add-breed', (req, res) => {
     res.render('addBreed')
 })
-router.post('/add-cat', (req, res) => {
+router.post('/add-cat', async(req, res) => {
     let name = req.body.name;
     let description = req.body.description;
     let upload = req.body.upload;
     let breed = req.body.breed;
+    let cat = new Cat(name, description, upload, breed);
 
-    let newCat = new Cat(name, description, upload, breed);
-try {
-    await (newCat).save();
+    try {
+    const savedCat = await cat.save();
+    res.json(savedCat);
     res.redirect('/');
 } catch (err) {
     res.render('add-cat', {

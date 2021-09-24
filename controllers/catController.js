@@ -8,12 +8,27 @@ const addBreed = (req, res) => {
     res.render('addBreed')
 }
 
-const createCat = (req, res) => {
+const createCatPage = (req, res) => {
     res.render('addCat');
 }
 
+const createCat = async(req, res, {name, description, upload, breed}) => {
+    const cat = new Cat({name, description, upload, breed});
+    try {
+            const savedCat = await cat.save();
+            // res.json(savedCat);
+            res.redirect('/');
+        } catch (err) {
+            res.render('addCat', {
+                message: err
+            })
+        }
+}
 
-router.get('/add-cat', createCat);
+
+
+router.post('/add-cat', createCat)
+router.get('/add-cat', createCatPage);
 router.get('/add-breed', addBreed);
 
 module.exports = router;

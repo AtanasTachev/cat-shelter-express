@@ -1,9 +1,11 @@
+const express = require('express');
 const env = process.env.NODE_ENV || 'development';
-const catsRoute = require('./routes/catRoutes.js')
-const app = require('express')();
+const app = express();
 const config = require('./config/config')[env];
+const routes = require('./routes')
 
 require('./config/express.js')(app);
+app.use(express.urlencoded({extended: false}));
 
 const mongoose = require('mongoose')
 const path = require('path');
@@ -17,7 +19,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 
-app.use('/', catsRoute);
+app.use(routes);
 
 
 app.listen(config.port, () => console.log(`Server running on port ${config.port}`));

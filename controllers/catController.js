@@ -1,21 +1,26 @@
-// const express = require('express');
+const catService = require('../services/catService.js');
 const {Router} = require('express');
 const Cat = require('../models/catModel.js');
 
 const router = Router();
 
-router.get('/', async(req, res) => {
-    const cats = [];
-    try{
-        res.render('home', {
-    title: 'Cat Shelter'});
-        cats = await Cat.find();
-        res.json(cats);
+const getCreateCat = (req, res) => {
+    let cats = catService.getAll();
+    res.render('create');
+}
+
+// router.get('/', async(req, res) => {
+//     const cats = [];
+//     try{
+//         res.render('home', {
+//     title: 'Cat Shelter'});
+//         cats = await Cat.find();
+//         res.json(cats);
     
-    } catch(err) {
-        res.json({message: err});
-    }
-});
+//     } catch(err) {
+//         res.json({message: err});
+//     }
+// });
 
 // router.get('/', (req, res) => {
 //     res.render('home', {
@@ -50,5 +55,7 @@ router.post('/add-cat', async(req, res) => {
 router.get('/add-cat', (req, res) => {
     res.render('addCat')
 })
+
+router.get('/create', getCreateCat)
 
 module.exports = router;

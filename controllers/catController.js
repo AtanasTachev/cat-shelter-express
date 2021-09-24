@@ -4,14 +4,17 @@ const Cat = require('../models/catModel.js');
 
 const router = Router();
 
-const getCreateCat = (req, res) => {
-    let cats = catService.getAll();
-    console.log(cats);
+const addBreed = (req, res) => {
+    res.render('addBreed')
+}
+
+const createCat = (req, res) => {
     res.render('addCat');
 }
 
 
-router.get('/add-cat', getCreateCat)
+router.get('/add-cat', createCat);
+router.get('/add-breed', addBreed);
 
 module.exports = router;
 

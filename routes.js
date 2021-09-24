@@ -6,6 +6,6 @@ const homeController = require('./controllers/homeController.js');
 const router = express.Router();
 
 router.use(homeController);
-router.use('/cats', catController);
+router.use('/', catController);
 
 module.exports = router;

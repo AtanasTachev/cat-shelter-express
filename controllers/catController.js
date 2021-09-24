@@ -4,7 +4,7 @@ const Cat = require('../models/catModel.js');
 
 const router = Router();
 
-const addBreed = (req, res) => {
+const addBreedPage = (req, res) => {
     res.render('addBreed')
 }
 
@@ -25,11 +25,13 @@ const createCat = async(req, res, {name, description, upload, breed}) => {
         }
 }
 
+const addBreed = 
+
 
 
 router.post('/add-cat', createCat)
 router.get('/add-cat', createCatPage);
-router.get('/add-breed', addBreed);
+router.get('/add-breed', addBreedPage);
 
 module.exports = router;
 

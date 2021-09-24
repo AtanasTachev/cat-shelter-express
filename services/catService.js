@@ -1,12 +1,28 @@
 const Cat = require('../models/catModel');
 
-const getAll = () => Cat.cats;
+// console.log(Cat);
 
-const getOne = (id) => Cat.cats.find(x => x.id ==id);
+const getAll = async(callback) => {
+    const cat = await Cat.find().lean();
+    return cat;
+};
 
-const create = (name, description, upload, breed) => {
-    let cat = new Cat(name, description, upload, breed);
-    Cat.bulkSave(cat);
+const getOne = async(id) => {
+    try {
+        const cat = await Cat.findById(id).lean();
+        return cat;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
+
+const create = async (req, res) => {
+    // await console.log(req.body);
+    const {name, description, upload, breed} = req.body;
+        let cat = new Cat({name, description, upload, breed});
+    const savedCat = await cat.save();
+    return true;
 }
 
 const catService = {

@@ -6,8 +6,14 @@ const router = Router();
 
 const getCreateCat = (req, res) => {
     let cats = catService.getAll();
-    res.render('create');
+    console.log(cats);
+    res.render('addCat');
 }
+
+
+router.get('/add-cat', getCreateCat)
+
+module.exports = router;
 
 // router.get('/', async(req, res) => {
 //     const cats = [];
@@ -29,33 +35,29 @@ const getCreateCat = (req, res) => {
 // })
 
 
-router.get('/add-breed', (req, res) => {
-    res.render('addBreed')
-})
-router.post('/add-cat', async(req, res) => {
+// router.get('/add-breed', (req, res) => {
+//     res.render('addBreed')
+// })
+// router.post('/add-cat', async(req, res) => {
 
-    const cat = new Cat ({
-        name: req.body.name,
-        description: req.body.description,
-        upload: req.body.upload,
-        breed: req.body.breed
-        });
+//     const cat = new Cat ({
+//         name: req.body.name,
+//         description: req.body.description,
+//         upload: req.body.upload,
+//         breed: req.body.breed
+//         });
 
-    try {
-    const savedCat = await cat.save();
-    res.json(savedCat);
-    res.redirect('/');
-} catch (err) {
-    res.render('addCat', {
-        message: err
-    })
-}
-})
+//     try {
+//     const savedCat = await cat.save();
+//     res.json(savedCat);
+//     res.redirect('/');
+// } catch (err) {
+//     res.render('addCat', {
+//         message: err
+//     })
+// }
+// })
 
-router.get('/add-cat', (req, res) => {
-    res.render('addCat')
-})
-
-router.get('/create', getCreateCat)
-
-module.exports = router;
+// router.get('/add-cat', (req, res) => {
+//     res.render('addCat')
+// })

@@ -1,6 +1,7 @@
 const catService = require('../services/catService.js');
 const {Router} = require('express');
 const Cat = require('../models/catModel.js');
+const Breed = require('../models/breedModel.js')
 
 const router = Router();
 
@@ -25,11 +26,19 @@ const createCat = async(req, res, {name, description, upload, breed}) => {
         }
 }
 
-const addBreed = 
+const addBreed = async(req, res, {newBreed}) => {
+    const breed =  new Breed({newBreed})
+    try {
+        const savedBreed = await breed.save();
+        res.redirect('/');
+    } catch(err) {
+        res.render('addBreed', {message: err})
+    }
+} 
 
 
-
-router.post('/add-cat', createCat)
+router.post('/add-breed', addBreed);
+router.post('/add-cat', createCat);
 router.get('/add-cat', createCatPage);
 router.get('/add-breed', addBreedPage);
 

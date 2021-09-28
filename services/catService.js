@@ -17,11 +17,11 @@ const getOne = async(id) => {
     }
 }
 
-const create = async (req, res) => {
-    const {name, description, upload, breed} = req.body;
+const create = (name, description, upload, breed) => {
+    // const {name, description, upload, breed} = req.body;
         let cat = new Cat({name, description, upload, breed});
-    const savedCat = await cat.save();
-    return true;
+    Cat.save(cat);
+    // return true;
 }
 
 const catService = {

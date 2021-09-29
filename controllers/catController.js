@@ -9,8 +9,10 @@ const addBreedPage = (req, res) => {
     res.render('addBreed')
 }
 
-const createCatPage = (req, res) => {
-    res.render('addCat');
+const createCatPage = async (req, res) => {
+    let breeds = [];
+    breeds = await Breed.find({}).lean();
+    res.render('addCat', {breeds});
 }
 
 const createCat = async (req, res) => {
@@ -24,7 +26,7 @@ const createCat = async (req, res) => {
     try {
         const savedCat = await cat.save();
         res.json(savedCat);
-        res.redirect('/');
+        res.redirect('/', {breeds});
     } catch (err) {
         res.json({
             message: err
@@ -33,6 +35,7 @@ const createCat = async (req, res) => {
 }
 
 const addBreed = async (req, res) => {
+    let breeds = [];
     const breed = new Breed({
         breed: req.body.breed
     })

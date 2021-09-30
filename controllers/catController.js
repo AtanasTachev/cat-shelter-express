@@ -12,7 +12,14 @@ const addBreedPage = (req, res) => {
 const createCatPage = async (req, res) => {
     let breeds = [];
     breeds = await Breed.find({}).lean();
-    res.render('addCat', {breeds});
+    try {
+        res.render('addCat', {breeds});
+    } catch(err) {
+        res.json({
+            message: err
+        })
+    }
+    
 }
 
 const createCat = async (req, res) => {
@@ -28,7 +35,8 @@ const createCat = async (req, res) => {
         res.json(savedCat);
         res.redirect('/', {breeds});
     } catch (err) {
-        res.json({
+        res.status(400)
+        ({
             message: err
         })
     }

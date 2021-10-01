@@ -15,7 +15,8 @@ const createCatPage = async (req, res) => {
     try {
         res.render('addCat', {breeds});
     } catch(err) {
-        res.json({
+        res.atatus(400);
+        res.send({
             message: err
         })
     }
@@ -35,8 +36,8 @@ const createCat = async (req, res) => {
         res.json(savedCat);
         res.redirect('/', {breeds});
     } catch (err) {
-        res.status(400)
-        ({
+        res.status(400);
+        res.send({
             message: err
         })
     }
@@ -52,7 +53,8 @@ const addBreed = async (req, res) => {
         res.json(savedBreed)
         res.redirect('/');
     } catch (err) {
-        res.json({ message: err })
+        res.status(400);
+        res.send({ message: err })
     }
 }
 

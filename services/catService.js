@@ -1,5 +1,5 @@
 const Cat = require('../models/catModel');
-
+const Breed = require('../models/breedModel')
 // console.log(Cat);
 
 const getAll = async(callback) => {
@@ -22,10 +22,16 @@ const create = (name, description, upload, breed) => {
     return cat.save();
 }
 
+const saveBreed = (breed) => {
+    let savedBreed = new Breed({breed});
+    return savedBreed.save();
+}
+
 const catService = {
     getAll,
     getOne,
-    create
+    create,
+    saveBreed
 }
 
 module.exports = catService;

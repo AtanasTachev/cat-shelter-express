@@ -39,12 +39,9 @@ const createCat = async (req, res) => {
 
 const addBreed = async (req, res) => {
     let breeds = [];
-    const breed = new Breed({
-        breed: req.body.breed
-    })
+    let {breed} = req.body;
     try {
-        const savedBreed = await breed.save();
-        res.json(savedBreed)
+        await catService.saveBreed(breed);
         res.redirect('/');
     } catch (err) {
         res.status(400);

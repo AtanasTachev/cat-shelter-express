@@ -3,8 +3,8 @@ const catService = require('../services/catService.js');
 
 const router = express.Router();
 
-const home = (req, res) => {
-    let cats = catService.getAll();
+const home = async (req, res) => {
+    let cats = await catService.getAll();
 
     res.render('home', { cats });
 };

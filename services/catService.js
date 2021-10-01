@@ -18,10 +18,8 @@ const getOne = async(id) => {
 }
 
 const create = (name, description, upload, breed) => {
-    // const {name, description, upload, breed} = req.body;
-        let cat = new Cat({name, description, upload, breed});
-    Cat.save(cat);
-    // return true;
+    let cat = new Cat({name, description, upload, breed});
+    return cat.save();
 }
 
 const catService = {

@@ -24,17 +24,11 @@ const createCatPage = async (req, res) => {
 }
 
 const createCat = async (req, res) => {
-    const cat = new Cat({
-        name: req.body.name,
-        description: req.body.description,
-        upload: req.body.upload,
-        breed: req.body.breed
-    });
+    let { name, description, upload, breed } = req.body;
 
     try {
-        const savedCat = await cat.save();
-        res.json(savedCat);
-        res.redirect('/', {breeds});
+        await catService.create(name, description, upload, breed);
+        res.redirect('/');
     } catch (err) {
         res.status(400);
         res.send({

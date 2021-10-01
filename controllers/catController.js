@@ -2,6 +2,7 @@ const catService = require('../services/catService.js');
 const { Router } = require('express');
 const Cat = require('../models/catModel.js');
 const Breed = require('../models/breedModel.js')
+const upload = require('../services/multerSetup').upload;
 
 const router = Router();
 
@@ -24,17 +25,22 @@ const createCatPage = async (req, res) => {
 }
 
 const createCat = async (req, res) => {
+    // let toUpload = uploadF.upload(req.file);
+    // console.log(toUpload);
+    // let upload = req.file;
     let { name, description, upload, breed } = req.body;
 
     try {
         await catService.create(name, description, upload, breed);
         res.redirect('/');
+        console.log(upload);
     } catch (err) {
         res.status(400);
         res.send({
             message: err
         })
     }
+    console.log({...req.body, file: req.file});
 }
 
 const addBreed = async (req, res) => {
@@ -49,7 +55,7 @@ const addBreed = async (req, res) => {
     }
 }
 
-
+//upload.single('upload')
 router.get('/add-cat', createCatPage);
 router.post('/add-cat', createCat);
 router.get('/add-breed', addBreedPage);
@@ -58,11 +64,11 @@ router.post('/add-breed', addBreed);
 module.exports = router;
 
 // router.get('/', async(req, res) => {
-//     const cats = [];
-//     try{
-//         res.render('home', {
-//     title: 'Cat Shelter'});
-//         cats = await Cat.find();
+    //     const cats = [];
+    //     try{
+        //         res.render('home', {
+            //     title: 'Cat Shelter'});
+            //         cats = await Cat.find();
 //         res.json(cats);
 
 //     } catch(err) {

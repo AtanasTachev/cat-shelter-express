@@ -1,6 +1,6 @@
 const Cat = require('../models/catModel');
 const Breed = require('../models/breedModel')
-// console.log(Cat);
+// const upload = require('../services/multerSetup').upload;
 
 const getAll = async(callback) => {
     const cat = await Cat.find().lean();

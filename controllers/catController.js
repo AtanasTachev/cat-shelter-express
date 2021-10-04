@@ -2,7 +2,7 @@ const catService = require('../services/catService.js');
 const { Router } = require('express');
 const Cat = require('../models/catModel.js');
 const Breed = require('../models/breedModel.js')
-const upload = require('../services/multerSetup').upload;
+// const upload = require('../services/multerSetup').upload;
 
 const router = Router();
 
@@ -40,7 +40,7 @@ const createCat = async (req, res) => {
             message: err
         })
     }
-    console.log({...req.body, file: req.file});
+    // console.log({...req.body, file: req.file});
 }
 
 const addBreed = async (req, res) => {
